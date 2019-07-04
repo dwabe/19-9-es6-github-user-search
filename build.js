@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -24,19 +24,19 @@ var App = function (_React$Component) {
     }
 
     _createClass(App, [{
-        key: "onChangeHandle",
+        key: 'onChangeHandle',
         value: function onChangeHandle(event) {
             this.setState({ searchText: event.target.value });
         }
     }, {
-        key: "onSubmit",
+        key: 'onSubmit',
         value: function onSubmit(event) {
             var _this2 = this;
 
             event.preventDefault();
             var searchText = this.state.searchText;
 
-            var url = "https://api.github.com/search/users?q=" + searchText;
+            var url = 'https://api.github.com/search/users?q=' + searchText;
             fetch(url).then(function (response) {
                 return response.json();
             }).then(function (responseJson) {
@@ -44,26 +44,49 @@ var App = function (_React$Component) {
             });
         }
     }, {
-        key: "render",
+        key: 'render',
         value: function render() {
             var _this3 = this;
 
+            var divStyle = {
+                maxWidth: '400px',
+                margin: '0 auto',
+                border: '1px solid grey'
+
+            };
+            var labelStyle = {
+                margin: '15px',
+                fontFamily: 'sans-serif',
+                fontSize: '15px'
+            };
+            var inputStyle = {
+                width: '180px',
+                padding: '10px',
+                fontFamily: 'sans-serif',
+                fontSize: '15px',
+                border: 'none'
+            };
+            var formStyle = {
+                borderBottom: '1px solid grey'
+            };
             return React.createElement(
-                "div",
-                null,
+                'div',
+                { style: divStyle },
                 React.createElement(
-                    "form",
-                    { onSubmit: function onSubmit(event) {
+                    'form',
+                    { style: formStyle, onSubmit: function onSubmit(event) {
                             return _this3.onSubmit(event);
                         } },
                     React.createElement(
-                        "label",
-                        { htmlFor: "searchText" },
-                        "Search by user name"
+                        'label',
+                        { htmlFor: 'searchText', style: labelStyle },
+                        'Search by user name:'
                     ),
-                    React.createElement("input", {
-                        type: "text",
-                        id: "searchText",
+                    React.createElement('input', {
+                        type: 'text',
+                        id: 'searchText',
+                        style: inputStyle,
+                        placeholder: 'at least 1 character',
                         onChange: function onChange(event) {
                             return _this3.onChangeHandle(event);
                         },
@@ -87,16 +110,16 @@ var UsersList = function (_React$Component2) {
     }
 
     _createClass(UsersList, [{
-        key: "render",
+        key: 'render',
         value: function render() {
             return React.createElement(
-                "div",
+                'div',
                 null,
                 this.users
             );
         }
     }, {
-        key: "users",
+        key: 'users',
         get: function get() {
             return this.props.users.map(function (user) {
                 return React.createElement(User, { key: user.id, user: user });
@@ -117,15 +140,28 @@ var User = function (_React$Component3) {
     }
 
     _createClass(User, [{
-        key: "render",
+        key: 'render',
         value: function render() {
+            var imgStyle = {
+                paddingLeft: '10px',
+                paddingRight: '10px',
+                maxWidth: '100px'
+            };
+            var linkStyle = {
+                fontFamily: 'sans-serif'
+            };
+            var listStyle = {
+                paddingBottom: '10px',
+                paddingTop: '10px',
+                borderBottom: '1px solid grey'
+            };
             return React.createElement(
-                "div",
-                null,
-                React.createElement("img", { src: this.props.user.avatar_url, style: { maxWidth: '100px' } }),
+                'div',
+                { style: listStyle },
+                React.createElement('img', { src: this.props.user.avatar_url, style: imgStyle }),
                 React.createElement(
-                    "a",
-                    { href: this.props.user.html_url, target: "_blank" },
+                    'a',
+                    { href: this.props.user.html_url, target: '_blank', style: linkStyle },
                     this.props.user.login
                 )
             );
